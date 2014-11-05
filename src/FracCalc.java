@@ -1,18 +1,22 @@
-
 import java.util.Scanner;
 
 public class FracCalc {	
-
+	
 	public static void main(String[] args){
 		Scanner scanner = new Scanner(System.in);
-		p("HEY, me frekcalc. you human... probably. gimmie an input boss.");
+		p("I'm FracCalc, Give me an input");
 		while(true){
-			String input = scanner.next();
+			String input = scanner.nextLine();
 			if(input.equals("quit")){
 				p("ok bye");
 				break;
+			}else if(){
+				String firstPart = input.substring(0 , input.indexOf(" "));
+				String secondPart = input.substring(input.indexOf(" "), input.length());
+				int firstNumber = firstPart.nextInt();
+				System.out.println(firstPart + " + " + secondPart);
 			}else{
-				p("nope. stahp. give me a number, even though I can only quit");
+				p("Give me a number.");
 			}
 		}
 	}
