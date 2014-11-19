@@ -4,22 +4,32 @@ public class FracCalc {
 	
 	public static void main(String[] args){
 		Scanner scanner = new Scanner(System.in);
-		p("I'm FracCalc, Give me an input");
+		p("I'm FracCalc, type expressions with fractions and I will evaluate them.");
+		p("\"quit\" to exit.");
 		while(true){
 			String input = scanner.nextLine();
-			if(input.equals("quit")){
-				p("ok bye");
+			if(input.toLowerCase().contains("quit")){
+				p("Thanks for using FracCalc!");
 				break;
 			}else{
-				String operator = input.substring(input.indexOf(" "), input.indexOf(" ")+2);
+				String operator = input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2);
+				
 				String firstPart = input.substring(0 , input.indexOf(" "));
-				String secondPart = input.substring(input.indexOf(operator)+3, input.length());
 				
-				//converts firstPart from a Mixed Number to an improper Fraction
+				String secondPart = input.substring(input.indexOf(operator)+2, input.length());
+				
+				
+				//converts Parts from Mixed Numbers to an improper Fractions
 				String firstPartNotMixed = mixedNumberToImproper(firstPart);
-				String secondPartNotMixed = mixedNumberToImproper(secondPart);
+				String secondPartNotMixed = mixedNumberToImproper(secondPart);				
 				
-				System.out.println("You asked me to calculate " + firstPartNotMixed + operator + " " + secondPartNotMixed);
+				//checks which operator the user inputed and completes equation
+				String product = "";
+				if (operator.equals("+")){
+					 product = addition(firstPartNotMixed, secondPartNotMixed);					
+					 
+				}
+				System.out.println(product);
 			}
 		}
 	}
@@ -50,7 +60,31 @@ public class FracCalc {
 			s = (firstNumerator + "/" + firstDenominator);
 			return s;
 		}else{
-			return s;
+			return s + "/1";
 		}
 	}
+	
+	public static String addition(String a, String b){
+		String firstDenominatorString = a.substring(a.indexOf("/")+1 , a.length());
+		int firstDenominator = Integer.parseInt(firstDenominatorString);
+		
+		String secondDenominatorString = b.substring(b.indexOf("/")+1 , b.length());
+		int secondDenominator = Integer.parseInt(secondDenominatorString);
+		
+		int newDenominator = firstDenominator * secondDenominator;
+		
+		String firstNumeratorString = a.substring(0, a.indexOf("/"));
+		int firstNumerator = Integer.parseInt(firstNumeratorString);
+		
+		String secondNumeratorString = b.substring(0, b.indexOf("/"));
+		int secondNumerator = Integer.parseInt(secondNumeratorString);
+		
+		int newFirstNumerator = firstNumerator*secondDenominator;
+		int newSecondNumerator = secondNumerator*firstDenominator;
+		
+		int newFinalNumerator= newSecondNumerator + newFirstNumerator;
+		
+		return "" + newFinalNumerator + "/" + newDenominator;
+	}
+	
 }
